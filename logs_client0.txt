@@ -1,0 +1,83 @@
+2025-11-16 15:32:09.629411: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
+2025-11-16 15:32:09.629477: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
+2025-11-16 15:32:09.629513: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1763287329.630039   66871 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+I0000 00:00:1763287329.630392   66871 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
+[93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated. 
+	Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below: 
+	flwr.client.start_client(
+		server_address='<IP>:<PORT>',
+		client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+	)
+	Using `start_numpy_client()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+	Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+
+		$ flower-supernode --insecure --superlink='<IP>:<PORT>'
+
+	To view all available options, run:
+
+		$ flower-supernode --help
+
+	Using `start_client()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[92mINFO [0m:      
+[92mINFO [0m:      Received: get_parameters message 6bc32043-cff6-4e8b-bde3-74fca3afa847
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message 916937f3-f8f7-4e1d-9dc6-2dee1673e06a
+/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/venv_arm/lib/python3.10/site-packages/keras/src/backend/tensorflow/core.py:171: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  return np.array(x)
+2025-11-16 15:32:14.008415: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:117] Plugin optimizer for device_type GPU is enabled.
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message 86bb80f4-b049-4780-938e-e2578d0b7a4e
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message aa30008f-12bc-4cde-9c36-d9e939c46975
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message fd035ddb-1900-45b2-91aa-9af2b82a20ee
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message a47cee53-0f39-40ae-b45b-541f328c4f33
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message f3dd9e6a-ea0f-4884-b8b7-67fb6ca08587
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: reconnect message c551db9a-cc41-4dbd-8882-f681655f4000
+[92mINFO [0m:      Disconnect and shut down
+✅ Client initialized successfully.
+🌐 Connecting to Flower server at: 127.0.0.1:8080
+------------------------------------------------------------
+🧩 Launch sequence:
+   1️⃣ python flower_implementation/flower_server_ssl.py
+   2️⃣ python flower_implementation/flower_client_ssl.py --server 127.0.0.1:8080 --data processed/client_0.npz --model lstm
+------------------------------------------------------------
+📈 Finished local training on 4745 samples.
+🧮 Multi-class anomaly report (local client):
+   Overall accuracy        : 0.9486
+   Type 1 (Spike)         : P=0.000, R=0.000
+   Type 2 (Seasonal break): P=0.000, R=0.000
+   Type 3 (Outlier)       : P=0.000, R=0.000
+📈 Finished local training on 4745 samples.
+🧮 Multi-class anomaly report (local client):
+   Overall accuracy        : 0.9490
+   Type 1 (Spike)         : P=0.000, R=0.000
+   Type 2 (Seasonal break): P=0.000, R=0.000
+   Type 3 (Outlier)       : P=0.333, R=0.022
+📈 Finished local training on 4745 samples.
+🧮 Multi-class anomaly report (local client):
+   Overall accuracy        : 0.9503
+   Type 1 (Spike)         : P=0.100, R=0.012
+   Type 2 (Seasonal break): P=0.000, R=0.000
+   Type 3 (Outlier)       : P=0.583, R=0.077

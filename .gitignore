@@ -1,0 +1,5 @@
+venv/
+venv_arm/
+**/__pycache__/
+*.log
+venv_arm

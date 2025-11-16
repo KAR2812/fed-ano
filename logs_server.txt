@@ -1,0 +1,68 @@
+[93mWARNING [0m:   DEPRECATED FEATURE: flwr.server.start_server() is deprecated.
+	Instead, use the `flower-superlink` CLI command to start a SuperLink as shown below:
+
+		$ flower-superlink --insecure
+
+	To view usage and all available options, run:
+
+		$ flower-superlink --help
+
+	Using `start_server()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[92mINFO [0m:      Starting Flower server, config: num_rounds=3, no round_timeout
+[92mINFO [0m:      Flower ECE: gRPC server running (3 rounds), SSL is disabled
+[92mINFO [0m:      [INIT]
+[92mINFO [0m:      Requesting initial parameters from one random client
+[92mINFO [0m:      Received initial parameters from one random client
+[92mINFO [0m:      Starting evaluation of initial global parameters
+[92mINFO [0m:      Evaluation returned no results (`None`)
+[92mINFO [0m:      
+[92mINFO [0m:      [ROUND 1]
+[92mINFO [0m:      configure_fit: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_fit: received 3 results and 0 failures
+[93mWARNING [0m:   No fit_metrics_aggregation_fn provided
+[92mINFO [0m:      configure_evaluate: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_evaluate: received 3 results and 0 failures
+[93mWARNING [0m:   No evaluate_metrics_aggregation_fn provided
+[92mINFO [0m:      
+[92mINFO [0m:      [ROUND 2]
+[92mINFO [0m:      configure_fit: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_fit: received 3 results and 0 failures
+[92mINFO [0m:      configure_evaluate: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_evaluate: received 3 results and 0 failures
+[92mINFO [0m:      
+[92mINFO [0m:      [ROUND 3]
+[92mINFO [0m:      configure_fit: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_fit: received 3 results and 0 failures
+[92mINFO [0m:      configure_evaluate: strategy sampled 3 clients (out of 3)
+[92mINFO [0m:      aggregate_evaluate: received 3 results and 0 failures
+[92mINFO [0m:      
+[92mINFO [0m:      [SUMMARY]
+[92mINFO [0m:      Run finished 3 round(s) in 14.87s
+[92mINFO [0m:      	History (loss, distributed):
+[92mINFO [0m:      		round 1: 0.28818780183792114
+[92mINFO [0m:      		round 2: 0.21789845327536264
+[92mINFO [0m:      		round 3: 0.20482238133748373
+[92mINFO [0m:      
+2025-11-16 15:32:24.733381: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
+2025-11-16 15:32:24.733516: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
+2025-11-16 15:32:24.733538: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1763287344.733553   66791 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+I0000 00:00:1763287344.733585   66791 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
+🚀 Starting Flower Server: 0.0.0.0:8080
+💾 Round 1: Saving aggregated global weights
+💾 Round 2: Saving aggregated global weights
+💾 Round 3: Saving aggregated global weights
+🎯 Training finished — exporting global FL model...
+Traceback (most recent call last):
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 73, in <module>
+    main()
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 64, in main
+    model.set_weights(final_weights)
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/venv_arm/lib/python3.10/site-packages/keras/src/layers/layer.py", line 731, in set_weights
+    raise ValueError(
+ValueError: You called `set_weights(weights)` on layer 'ffnn_multiclass' with a weight list of length 7, but the layer was expecting 6 weights.

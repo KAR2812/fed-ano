@@ -1,0 +1,10 @@
+{
+    "logistic": {"optimizer": "adam", "lr": 0.001, "batch_size": 128, "local_epochs": 1, "global_rounds": 10},
+    "ffnn": {"optimizer": "adam", "lr": 0.001, "batch_size": 64, "local_epochs": 1, "global_rounds": 10},
+    "conv1d": {"optimizer": "adam", "lr": 0.001, "batch_size": 64, "local_epochs": 1, "global_rounds": 10},
+    "autoencoder": {"optimizer": "adam", "lr": 0.001, "ae_pretrain_epochs": 20, "batch_size": 128, "local_epochs": 1, "global_rounds": 10},
+    "rnn": {"optimizer": "adam", "lr": 0.001, "batch_size": 64, "local_epochs": 1, "global_rounds": 10},
+    "lstm": {"optimizer": "adam", "lr": 0.001, "batch_size": 64, "local_epochs": 1, "global_rounds": 10},
+    "gru": {"optimizer": "adam", "lr": 0.001, "batch_size": 64, "local_epochs": 1, "global_rounds": 10}
+  }
+  
