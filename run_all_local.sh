@@ -25,22 +25,24 @@ echo "💻 Launching Client 0..."
 python flower_implementation/flower_client_ssl.py \
   --server 127.0.0.1:8080 \
   --data processed/client_0.npz \
-  --model lstm > logs_client0.txt 2>&1 &
+  --model hybrid > logs_client0.txt 2>&1 &
 sleep 2
 
 echo "💻 Launching Client 1..."
 python flower_implementation/flower_client_ssl.py \
   --server 127.0.0.1:8080 \
   --data processed/client_1.npz \
-  --model lstm > logs_client1.txt 2>&1 &
+  --model hybrid > logs_client1.txt 2>&1 &
 sleep 2
 
 echo "💻 Launching Client 2..."
 python flower_implementation/flower_client_ssl.py \
   --server 127.0.0.1:8080 \
   --data processed/client_2.npz \
-  --model lstm > logs_client2.txt 2>&1 &
+  --model hybrid > logs_client2.txt 2>&1 &
 sleep 2
+
+
 
 echo ""
 echo "✅ All components launched!"

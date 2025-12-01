@@ -1,9 +1,9 @@
-2025-11-16 15:32:13.407759: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
-2025-11-16 15:32:13.407797: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
-2025-11-16 15:32:13.407807: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
+2025-12-01 15:28:58.429148: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
+2025-12-01 15:28:58.429184: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
+2025-12-01 15:28:58.429212: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1763287333.407818   67351 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-I0000 00:00:1763287333.407838   67351 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
+I0000 00:00:1764583138.429224 3165252 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+I0000 00:00:1764583138.429244 3165252 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
 [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated. 
 	Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below: 
 	flwr.client.start_client(
@@ -29,54 +29,86 @@ I0000 00:00:1763287333.407838   67351 pluggable_device_factory.cc:271] Created T
             This is a deprecated feature. It will be removed
             entirely in future versions of Flower.
         
-[92mINFO [0m:      
-[92mINFO [0m:      Received: train message f10663f1-3fe5-405b-98f5-58cd35c5d0a4
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1763287333.574795   67672 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+I0000 00:00:1764583138.689883 3165492 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message 254cfde4-efaa-4d54-8516-be2a476ecb4d
 /Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/venv_arm/lib/python3.10/site-packages/keras/src/backend/tensorflow/core.py:171: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
   return np.array(x)
-2025-11-16 15:32:13.977013: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:117] Plugin optimizer for device_type GPU is enabled.
+2025-12-01 15:28:59.247843: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:117] Plugin optimizer for device_type GPU is enabled.
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: evaluate message fb603205-1c57-48b5-8f2d-8dda149bd830
+[92mINFO [0m:      Received: evaluate message 992813a1-1820-44df-b26f-530f0f7222d6
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: train message e6e6f90e-276d-4e2c-b0da-b2264e4c703b
+[92mINFO [0m:      Received: train message 2cf83b8f-c0e2-495c-8828-f1e7f4322b0f
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: evaluate message b11f6bb6-f810-49da-b6c0-a22e4e6fbf4b
+[92mINFO [0m:      Received: evaluate message b2c5431d-bbb7-48b4-ae85-181d9b0c69b2
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: train message 204abfd5-ce07-4914-89c0-1016cafd3225
+[92mINFO [0m:      Received: train message 44d9b334-1098-474a-80e9-40659da3b9f6
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: evaluate message 521ad14e-491e-413a-85ae-ade722d036c2
+[92mINFO [0m:      Received: evaluate message d35c7963-aa7c-45aa-bf51-121991c536ea
 [92mINFO [0m:      Sent reply
 [92mINFO [0m:      
-[92mINFO [0m:      Received: reconnect message cad8d668-4dc1-446f-88e3-d9610e0edd9e
+[92mINFO [0m:      Received: reconnect message 228b7e1f-2051-4ec5-abfe-16c65a993fd3
 [92mINFO [0m:      Disconnect and shut down
-✅ Client initialized successfully.
-🌐 Connecting to Flower server at: 127.0.0.1:8080
+ Smart Grid Client Ready
+ Connecting to Server @ 127.0.0.1:8080
 ------------------------------------------------------------
-🧩 Launch sequence:
-   1️⃣ python flower_implementation/flower_server_ssl.py
-   2️⃣ python flower_implementation/flower_client_ssl.py --server 127.0.0.1:8080 --data processed/client_2.npz --model lstm
+➡ Run using data: processed/client_2.npz
+➡ Using model: hybrid
 ------------------------------------------------------------
-📈 Finished local training on 4745 samples.
-🧮 Multi-class anomaly report (local client):
-   Overall accuracy        : 0.9519
-   Type 1 (Spike)         : P=0.000, R=0.000
-   Type 2 (Seasonal break): P=0.000, R=0.000
-   Type 3 (Outlier)       : P=0.000, R=0.000
-📈 Finished local training on 4745 samples.
-🧮 Multi-class anomaly report (local client):
-   Overall accuracy        : 0.9536
-   Type 1 (Spike)         : P=0.273, R=0.043
-   Type 2 (Seasonal break): P=0.000, R=0.000
-   Type 3 (Outlier)       : P=0.500, R=0.062
-📈 Finished local training on 4745 samples.
-🧮 Multi-class anomaly report (local client):
-   Overall accuracy        : 0.9553
-   Type 1 (Spike)         : P=0.267, R=0.058
-   Type 2 (Seasonal break): P=0.000, R=0.000
-   Type 3 (Outlier)       : P=0.571, R=0.148
+📈 Local training done on 4745 samples
+
+==================================================
+Metric                    | Value     
+--------------------------------------------------
+Accuracy                  | 0.9519
+--------------------------------------------------
+Precision (Spike)         | 0.910
+Recall (Spike)            | 0.633
+--------------------------------------------------
+Precision (Season)        | 0.879
+Recall (Season)           | 0.833
+--------------------------------------------------
+Precision (Outlier)       | 0.799
+Recall (Outlier)          | 0.729
+==================================================
+
+📈 Local training done on 4745 samples
+
+==================================================
+Metric                    | Value     
+--------------------------------------------------
+Accuracy                  | 0.9536
+--------------------------------------------------
+Precision (Spike)         | 0.884
+Recall (Spike)            | 0.861
+--------------------------------------------------
+Precision (Season)        | 0.600
+Recall (Season)           | 0.038
+--------------------------------------------------
+Precision (Outlier)       | 0.500
+Recall (Outlier)          | 0.062
+==================================================
+
+📈 Local training done on 4745 samples
+
+==================================================
+Metric                    | Value     
+--------------------------------------------------
+Accuracy                  | 0.9566
+--------------------------------------------------
+Precision (Spike)         | 0.732
+Recall (Spike)            | 0.691
+--------------------------------------------------
+Precision (Season)        | 0.841
+Recall (Season)           | 0.630
+--------------------------------------------------
+Precision (Outlier)       | 0.458
+Recall (Outlier)          | 0.272
+==================================================
+

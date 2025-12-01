@@ -1,107 +1,145 @@
-# models/model_utils.py
-
 import tensorflow as tf
 
+# ---------------- HYBRID MODEL ---------------- #
 
-def build_logistic(input_dim: int) -> tf.keras.Model:
-    inputs = tf.keras.Input(shape=(input_dim,))
-    outputs = tf.keras.layers.Dense(4, activation="softmax")(inputs)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="logistic_multiclass")
-    model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
-    )
-    return model
+import tensorflow as tf
+from models.models_tff import (
+    logistic_regression,
+    ffnn_model,
+    conv1d_model,
+    autoencoder_models,
+    rnn_model,
+    lstm_model,
+    gru_model,
+    hybrid_cnn_bilstm,
+)
+def hybrid_cnn_bilstm_attention(input_dim: int) -> tf.keras.Model:
 
+    inputs = tf.keras.Input(shape=(1, input_dim))  # Proper sequential shape
 
-def build_ffnn(input_dim: int) -> tf.keras.Model:
-    inputs = tf.keras.Input(shape=(input_dim,))
-    x = tf.keras.layers.Dense(64, activation="relu")(inputs)
-    x = tf.keras.layers.Dropout(0.2)(x)
+    # CNN Block
+    x = tf.keras.layers.Conv1D(filters=32, kernel_size=1, activation="relu")(inputs)
+
+    # BiLSTM Block
+    x = tf.keras.layers.Bidirectional(
+        tf.keras.layers.LSTM(32, return_sequences=True)
+    )(x)
+
+    # Multi-head Self Attention
+    attention = tf.keras.layers.MultiHeadAttention(
+        num_heads=2, key_dim=16
+    )(x, x)
+    x = tf.keras.layers.Add()([x, attention])  # residual
+    x = tf.keras.layers.GlobalAveragePooling1D()(x)
+
     x = tf.keras.layers.Dense(32, activation="relu")(x)
     outputs = tf.keras.layers.Dense(4, activation="softmax")(x)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="ffnn_multiclass")
+
+    model = tf.keras.Model(inputs, outputs, name="Hybrid_CNN_BiLSTM_Attn")
+
     model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
+        optimizer=tf.keras.optimizers.Adam(1e-3),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+        metrics=[
+            tf.keras.metrics.CategoricalAccuracy(name="accuracy"),
+            tf.keras.metrics.Precision(name="precision"),
+            tf.keras.metrics.Recall(name="recall"),
+        ],
     )
+
     return model
 
 
-def build_conv1d(input_dim: int) -> tf.keras.Model:
-    # Input shape: (timesteps=input_dim, channels=1)
-    inputs = tf.keras.Input(shape=(input_dim, 1))
-    x = tf.keras.layers.Conv1D(32, kernel_size=3, padding="same", activation="relu")(inputs)
-    x = tf.keras.layers.MaxPooling1D(pool_size=2)(x)
-    x = tf.keras.layers.Flatten()(x)
-    x = tf.keras.layers.Dense(32, activation="relu")(x)
-    outputs = tf.keras.layers.Dense(4, activation="softmax")(x)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="conv1d_multiclass")
-    model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
-    )
+# ---------------- SIMPLE MODELS ---------------- #
+def logistic_regression(input_dim):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(input_dim,)),
+        tf.keras.layers.Dense(4, activation="softmax")
+    ])
+    compile_model(model)
+    return model
+
+def ffnn_model(input_dim):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(input_dim,)),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(4, activation="softmax")
+    ])
+    compile_model(model)
+    return model
+
+def conv1d_model(input_dim):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(input_dim, 1)),
+        tf.keras.layers.Conv1D(32, 3, activation="relu"),
+        tf.keras.layers.MaxPooling1D(2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dense(4, activation="softmax"),
+    ])
+    compile_model(model)
+    return model
+
+def rnn_model(input_dim, units=32):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(1, input_dim)),
+        tf.keras.layers.SimpleRNN(units),
+        tf.keras.layers.Dense(4, activation="softmax"),
+    ])
+    compile_model(model)
+    return model
+
+def lstm_model(input_dim, units=32):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(1, input_dim)),
+        tf.keras.layers.LSTM(units),
+        tf.keras.layers.Dense(4, activation="softmax"),
+    ])
+    compile_model(model)
+    return model
+
+def gru_model(input_dim, units=32):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(1, input_dim)),
+        tf.keras.layers.GRU(units),
+        tf.keras.layers.Dense(4, activation="softmax"),
+    ])
+    compile_model(model)
     return model
 
 
-def build_rnn(input_dim: int) -> tf.keras.Model:
-    # Input shape: (timesteps=1, features=input_dim)
-    inputs = tf.keras.Input(shape=(1, input_dim))
-    x = tf.keras.layers.SimpleRNN(32, return_sequences=False)(inputs)
-    x = tf.keras.layers.Dense(32, activation="relu")(x)
-    outputs = tf.keras.layers.Dense(4, activation="softmax")(x)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="rnn_multiclass")
+# COMMON Compile Wrapper
+def compile_model(model):
     model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
+        optimizer=tf.keras.optimizers.Adam(1e-3),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+        metrics=[
+            tf.keras.metrics.CategoricalAccuracy(name="accuracy"),
+            tf.keras.metrics.Precision(name="precision"),
+            tf.keras.metrics.Recall(name="recall"),
+        ],
     )
-    return model
 
 
-def build_lstm(input_dim: int) -> tf.keras.Model:
-    inputs = tf.keras.Input(shape=(1, input_dim))
-    x = tf.keras.layers.LSTM(32, return_sequences=False)(inputs)
-    x = tf.keras.layers.Dense(32, activation="relu")(x)
-    outputs = tf.keras.layers.Dense(4, activation="softmax")(x)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="lstm_multiclass")
-    model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
-    )
-    return model
-
-
-def build_gru(input_dim: int) -> tf.keras.Model:
-    inputs = tf.keras.Input(shape=(1, input_dim))
-    x = tf.keras.layers.GRU(32, return_sequences=False)(inputs)
-    x = tf.keras.layers.Dense(32, activation="relu")(x)
-    outputs = tf.keras.layers.Dense(4, activation="softmax")(x)
-    model = tf.keras.Model(inputs=inputs, outputs=outputs, name="gru_multiclass")
-    model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
-    )
-    return model
-
+# ---------------- SELECTOR ---------------- #
 
 def get_model_by_name(name: str, input_dim: int) -> tf.keras.Model:
     name = name.lower()
+
     if name == "logistic":
-        return build_logistic(input_dim)
+        return logistic_regression(input_dim)
     if name == "ffnn":
-        return build_ffnn(input_dim)
+        return ffnn_model(input_dim)
     if name == "conv1d":
-        return build_conv1d(input_dim)
+        return conv1d_model(input_dim)
     if name == "rnn":
-        return build_rnn(input_dim)
+        return rnn_model(input_dim)
     if name == "lstm":
-        return build_lstm(input_dim)
+        return lstm_model(input_dim)
     if name == "gru":
-        return build_gru(input_dim)
+        return gru_model(input_dim)
+    if name == "hybrid":
+        return hybrid_cnn_bilstm(input_dim)
+
     raise ValueError(f"Unknown model name: {name}")

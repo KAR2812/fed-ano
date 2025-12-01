@@ -9,10 +9,13 @@ openssl req -x509 -new -nodes -key ca_key.pem -sha256 -days 3650 -out ca_crt.pem
 
 echo "Generating server key and CSR..."
 openssl genrsa -out server_key.pem 4096
-openssl req -new -key server_key.pem -out server.csr -subj "/CN=fl-server.local"
+openssl req -new -key server_key.pem -out server.csr -subj "/CN=fl-server.local" \
+    -addext "subjectAltName = DNS:fl-server.local,DNS:localhost,IP:127.0.0.1"
 
 echo "Signing server cert with CA..."
-openssl x509 -req -in server.csr -CA ca_crt.pem -CAkey ca_key.pem -CAcreateserial -out server_crt.pem -days 365 -sha256
+openssl x509 -req -in server.csr -CA ca_crt.pem -CAkey ca_key.pem -CAcreateserial \
+    -out server_crt.pem -days 365 -sha256 \
+    -copy_extensions copy
 
 echo "Generating client key and CSR..."
 openssl genrsa -out client_key.pem 2048

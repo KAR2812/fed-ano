@@ -13,7 +13,7 @@
             entirely in future versions of Flower.
         
 [92mINFO [0m:      Starting Flower server, config: num_rounds=3, no round_timeout
-[92mINFO [0m:      Flower ECE: gRPC server running (3 rounds), SSL is disabled
+[92mINFO [0m:      Flower ECE: gRPC server running (3 rounds), SSL is enabled
 [92mINFO [0m:      [INIT]
 [92mINFO [0m:      Requesting initial parameters from one random client
 [92mINFO [0m:      Received initial parameters from one random client
@@ -23,7 +23,6 @@
 [92mINFO [0m:      [ROUND 1]
 [92mINFO [0m:      configure_fit: strategy sampled 3 clients (out of 3)
 [92mINFO [0m:      aggregate_fit: received 3 results and 0 failures
-[93mWARNING [0m:   No fit_metrics_aggregation_fn provided
 [92mINFO [0m:      configure_evaluate: strategy sampled 3 clients (out of 3)
 [92mINFO [0m:      aggregate_evaluate: received 3 results and 0 failures
 [93mWARNING [0m:   No evaluate_metrics_aggregation_fn provided
@@ -41,28 +40,47 @@
 [92mINFO [0m:      aggregate_evaluate: received 3 results and 0 failures
 [92mINFO [0m:      
 [92mINFO [0m:      [SUMMARY]
-[92mINFO [0m:      Run finished 3 round(s) in 14.87s
+[92mINFO [0m:      Run finished 3 round(s) in 35.12s
 [92mINFO [0m:      	History (loss, distributed):
-[92mINFO [0m:      		round 1: 0.28818780183792114
-[92mINFO [0m:      		round 2: 0.21789845327536264
-[92mINFO [0m:      		round 3: 0.20482238133748373
+[92mINFO [0m:      		round 1: 0.31469563643137616
+[92mINFO [0m:      		round 2: 0.22140576938788095
+[92mINFO [0m:      		round 3: 0.19975892206033072
 [92mINFO [0m:      
-2025-11-16 15:32:24.733381: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
-2025-11-16 15:32:24.733516: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
-2025-11-16 15:32:24.733538: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
+2025-12-01 15:29:30.378711: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M2
+2025-12-01 15:29:30.378808: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 8.00 GB
+2025-12-01 15:29:30.378827: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 2.67 GB
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1763287344.733553   66791 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-I0000 00:00:1763287344.733585   66791 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
-🚀 Starting Flower Server: 0.0.0.0:8080
-💾 Round 1: Saving aggregated global weights
-💾 Round 2: Saving aggregated global weights
-💾 Round 3: Saving aggregated global weights
-🎯 Training finished — exporting global FL model...
+I0000 00:00:1764583170.378843 3164958 pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+I0000 00:00:1764583170.378872 3164958 pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
+ Weighted Federated Server running on 0.0.0.0:8080
+--------------------------------
+
+ ROUND 1 — Weighted Aggregation
+ ➤ Client 447870d173084218b4051b902a6fdc45: weight=0.1000, divergence=0.0000, metrics={}
+ ➤ Client 3934384304a5448ebe891eafb1717589: weight=0.0476, divergence=5.2410, metrics={}
+ ➤ Client e1cd69009e80409f838b84580c0737fb: weight=0.0422, divergence=5.7811, metrics={}
+ Final normalized influence: [0.52692917 0.2507637  0.22230714]
+--------------------------------
+
+ ROUND 2 — Weighted Aggregation
+ ➤ Client 3934384304a5448ebe891eafb1717589: weight=0.0419, divergence=5.8140, metrics={}
+ ➤ Client 447870d173084218b4051b902a6fdc45: weight=0.0581, divergence=4.1911, metrics={}
+ ➤ Client e1cd69009e80409f838b84580c0737fb: weight=0.0444, divergence=5.5609, metrics={}
+ Final normalized influence: [0.2900092  0.40244793 0.30754287]
+--------------------------------
+
+ ROUND 3 — Weighted Aggregation
+ ➤ Client e1cd69009e80409f838b84580c0737fb: weight=0.0727, divergence=2.7341, metrics={}
+ ➤ Client 447870d173084218b4051b902a6fdc45: weight=0.0758, divergence=2.4169, metrics={}
+ ➤ Client 3934384304a5448ebe891eafb1717589: weight=0.0643, divergence=3.5691, metrics={}
+ Final normalized influence: [0.3414432  0.35635129 0.3022055 ]
+ Saving final global model weights...
+⚠ global_params length (12) != model weights length (6). Trimming to match.
 Traceback (most recent call last):
-  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 73, in <module>
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 188, in <module>
     main()
-  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 64, in main
-    model.set_weights(final_weights)
-  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/venv_arm/lib/python3.10/site-packages/keras/src/layers/layer.py", line 731, in set_weights
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/flower_implementation/flower_server_ssl.py", line 176, in main
+    model.set_weights(params_to_use)
+  File "/Users/keshavarunanumolu/Downloads/federated-anomaly-smartgrid/venv_arm/lib/python3.10/site-packages/keras/src/layers/layer.py", line 738, in set_weights
     raise ValueError(
-ValueError: You called `set_weights(weights)` on layer 'ffnn_multiclass' with a weight list of length 7, but the layer was expecting 6 weights.
+ValueError: Layer sequential weight shape (3, 128) is not compatible with provided weight shape (1, 3, 32).
